@@ -88,6 +88,7 @@ def generate_csvs(db_path):
     """Run all 3 queries and return a dict of {filename: csv_string}.
 
     Also returns a stats dict with row counts.
+    CSVs contain only: artist, title (in that order).
     """
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
@@ -97,28 +98,28 @@ def generate_csvs(db_path):
     # 1 ── Liked
     cur.execute(LIKED_Q)
     rows = [
-        [t, a, _epoch_to_date(ld)]
-        for t, a, _al, _d, _pt, _lk, ld in cur.fetchall()
+        [a, t]
+        for t, a, _al, _d, _pt, _lk, _ld in cur.fetchall()
     ]
-    result["liked_songs.csv"] = _rows_to_csv(["title", "artist", "liked_date"], rows)
+    result["liked_songs.csv"] = _rows_to_csv(["artist", "title"], rows)
     stats["liked_songs"] = len(rows)
 
     # 2 ── Most played
     cur.execute(MOST_PLAYED_Q)
     rows = [
-        [t, a, _ms_to_mins(pt)]
-        for t, a, _al, _d, pt, _lk, _ld in cur.fetchall()
+        [a, t]
+        for t, a, _al, _d, _pt, _lk, _ld in cur.fetchall()
     ]
-    result["most_played.csv"] = _rows_to_csv(["title", "artist", "total_play_time"], rows)
+    result["most_played.csv"] = _rows_to_csv(["artist", "title"], rows)
     stats["most_played"] = len(rows)
 
     # 3 ── All cached
     cur.execute(ALL_Q)
     rows = [
-        [t, a, _duration_fmt(d), al or ""]
-        for t, a, al, d, _pt, _lk, _ld in cur.fetchall()
+        [a, t]
+        for t, a, _al, _d, _pt, _lk, _ld in cur.fetchall()
     ]
-    result["cached_songs.csv"] = _rows_to_csv(["title", "artist", "duration", "album"], rows)
+    result["cached_songs.csv"] = _rows_to_csv(["artist", "title"], rows)
     stats["cached_songs"] = len(rows)
 
     conn.close()

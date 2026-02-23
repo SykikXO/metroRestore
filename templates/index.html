@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,22 +10,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     /* ── Reset & Tokens ────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
-      --bg:       #0b0d14;
-      --surface:  rgba(255,255,255,0.04);
-      --border:   rgba(255,255,255,0.08);
-      --text:     #e4e6ed;
-      --muted:    #7a7f91;
-      --accent:   #6c5ce7;
+      --bg: #0b0d14;
+      --surface: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #e4e6ed;
+      --muted: #7a7f91;
+      --accent: #6c5ce7;
       --accent-g: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
-      --green:    #00cec9;
-      --red:      #ff7675;
-      --orange:   #fdcb6e;
-      --radius:   16px;
-      --radius-sm:10px;
-      --font:     'Inter', -apple-system, sans-serif;
+      --green: #00cec9;
+      --red: #ff7675;
+      --orange: #fdcb6e;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --font: 'Inter', -apple-system, sans-serif;
     }
 
     body {
@@ -42,28 +49,39 @@
     body::before {
       content: '';
       position: fixed;
-      width: 700px; height: 700px;
+      width: 700px;
+      height: 700px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(108,92,231,.18) 0%, transparent 70%);
-      top: -200px; left: -100px;
+      background: radial-gradient(circle, rgba(108, 92, 231, .18) 0%, transparent 70%);
+      top: -200px;
+      left: -100px;
       animation: drift 20s ease-in-out infinite alternate;
       pointer-events: none;
       z-index: 0;
     }
+
     body::after {
       content: '';
       position: fixed;
-      width: 500px; height: 500px;
+      width: 500px;
+      height: 500px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,206,201,.12) 0%, transparent 70%);
-      bottom: -150px; right: -80px;
+      background: radial-gradient(circle, rgba(0, 206, 201, .12) 0%, transparent 70%);
+      bottom: -150px;
+      right: -80px;
       animation: drift 25s ease-in-out infinite alternate-reverse;
       pointer-events: none;
       z-index: 0;
     }
+
     @keyframes drift {
-      0%   { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(60px, 40px) scale(1.15); }
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(60px, 40px) scale(1.15);
+      }
     }
 
     /* ── Layout ─────────────────────────────────────────────── */
@@ -79,6 +97,7 @@
       text-align: center;
       margin-bottom: 40px;
     }
+
     header .logo {
       font-size: 14px;
       font-weight: 600;
@@ -87,6 +106,7 @@
       color: var(--accent);
       margin-bottom: 12px;
     }
+
     header h1 {
       font-size: 32px;
       font-weight: 800;
@@ -95,6 +115,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     header p {
       margin-top: 10px;
       color: var(--muted);
@@ -114,34 +135,45 @@
       cursor: pointer;
       transition: border-color .25s, background .25s, transform .15s;
     }
+
     .upload-zone:hover,
     .upload-zone.drag-over {
       border-color: var(--accent);
-      background: rgba(108,92,231,.06);
+      background: rgba(108, 92, 231, .06);
       transform: translateY(-2px);
     }
+
     .upload-zone .icon {
       font-size: 48px;
       margin-bottom: 12px;
       opacity: .7;
     }
+
     .upload-zone h2 {
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 6px;
     }
+
     .upload-zone .hint {
       color: var(--muted);
       font-size: 13px;
     }
-    .upload-zone input { display: none; }
+
+    .upload-zone input {
+      display: none;
+    }
 
     /* ── Progress Bar ───────────────────────────────────────── */
     .progress-wrap {
       margin-top: 28px;
       display: none;
     }
-    .progress-wrap.visible { display: block; }
+
+    .progress-wrap.visible {
+      display: block;
+    }
+
     .progress-bar-bg {
       width: 100%;
       height: 6px;
@@ -149,6 +181,7 @@
       background: var(--surface);
       overflow: hidden;
     }
+
     .progress-bar {
       height: 100%;
       width: 0%;
@@ -156,6 +189,7 @@
       background: var(--accent-g);
       transition: width .4s ease;
     }
+
     .progress-label {
       margin-top: 10px;
       font-size: 13px;
@@ -168,27 +202,37 @@
       margin-top: 20px;
       padding: 14px 18px;
       border-radius: var(--radius-sm);
-      background: rgba(255,118,117,.08);
-      border: 1px solid rgba(255,118,117,.25);
+      background: rgba(255, 118, 117, .08);
+      border: 1px solid rgba(255, 118, 117, .25);
       color: var(--red);
       font-size: 14px;
       display: none;
     }
-    .error-msg.visible { display: block; }
+
+    .error-msg.visible {
+      display: block;
+    }
 
     /* ── Results ────────────────────────────────────────────── */
     .results {
       margin-top: 36px;
       display: none;
     }
-    .results.visible { display: block; }
+
+    .results.visible {
+      display: block;
+    }
+
     .results h3 {
       font-size: 16px;
       font-weight: 700;
       margin-bottom: 16px;
       color: var(--green);
     }
-    .results h3 .check { margin-right: 6px; }
+
+    .results h3 .check {
+      margin-right: 6px;
+    }
 
     .card-grid {
       display: grid;
@@ -206,11 +250,17 @@
       backdrop-filter: blur(10px);
       transition: border-color .2s, transform .15s;
     }
+
     .card:hover {
-      border-color: rgba(255,255,255,.15);
+      border-color: rgba(255, 255, 255, .15);
       transform: translateY(-1px);
     }
-    .card-info { flex: 1; min-width: 0; }
+
+    .card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
     .card-name {
       font-weight: 600;
       font-size: 15px;
@@ -218,16 +268,19 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .card-stat {
       font-size: 12px;
       color: var(--muted);
       margin-top: 3px;
     }
+
     .card-icon {
       font-size: 22px;
       margin-right: 14px;
       flex-shrink: 0;
     }
+
     .btn-dl {
       flex-shrink: 0;
       background: var(--accent-g);
@@ -241,7 +294,11 @@
       cursor: pointer;
       transition: opacity .2s, transform .15s;
     }
-    .btn-dl:hover { opacity: .88; transform: scale(1.03); }
+
+    .btn-dl:hover {
+      opacity: .88;
+      transform: scale(1.03);
+    }
 
     /* ── Footer ─────────────────────────────────────────────── */
     footer {
@@ -254,25 +311,114 @@
 
     /* ── Animations ─────────────────────────────────────────── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .results.visible .card {
       animation: fadeUp .4s ease forwards;
       opacity: 0;
     }
-    .results.visible .card:nth-child(1) { animation-delay: .05s; }
-    .results.visible .card:nth-child(2) { animation-delay: .15s; }
-    .results.visible .card:nth-child(3) { animation-delay: .25s; }
+
+    .results.visible .card:nth-child(1) {
+      animation-delay: .05s;
+    }
+
+    .results.visible .card:nth-child(2) {
+      animation-delay: .15s;
+    }
+
+    .results.visible .card:nth-child(3) {
+      animation-delay: .25s;
+    }
+
+    /* ── Import Instructions ────────────────────────────────── */
+    .instructions {
+      margin-top: 32px;
+      display: none;
+    }
+
+    .instructions.visible {
+      display: block;
+      animation: fadeUp .5s ease forwards;
+    }
+
+    .instructions-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .instructions-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .steps {
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding-left: 36px;
+      padding-bottom: 14px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .steps li:last-child {
+      padding-bottom: 0;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 1px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(108, 92, 231, .15);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .steps li .muted {
+      color: var(--muted);
+      font-size: 13px;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <!-- Header -->
     <header>
       <div class="logo">Metrolist</div>
       <h1>Backup → CSV Export</h1>
-      <p>Upload your <strong>.backup</strong> file and get your liked songs, most-played tracks, and full library as downloadable CSVs.</p>
+      <p>Upload your <strong>.backup</strong> file and get your liked songs, most-played tracks, and full library as
+        downloadable CSVs.</p>
     </header>
 
     <!-- Upload -->
@@ -300,23 +446,41 @@
       <div class="card-grid" id="cardGrid"></div>
     </div>
 
+    <!-- Import Instructions -->
+    <div class="instructions" id="instructions">
+      <div class="instructions-card">
+        <h4>📲 How to import into Metrolist</h4>
+        <ol class="steps">
+          <li>Open the <strong>Metrolist</strong> app <span class="muted">(latest version)</span></li>
+          <li>Tap your <strong>account icon</strong> (top-right) → <strong>Settings</strong></li>
+          <li>Under <strong>Storage &amp; Data</strong>, open <strong>Backup and Restore</strong></li>
+          <li>Select the <strong>4th option</strong> — <em>Import a CSV playlist</em></li>
+          <li>Pick one of your downloaded CSV files <span class="muted">(don't change any options, just press
+              Continue)</span></li>
+          <li>Select or create a <strong>new playlist</strong> — done!</li>
+          <li>Repeat for each CSV file you want to import</li>
+        </ol>
+      </div>
+    </div>
+
     <footer>Files are auto-deleted after 10 minutes · No data is stored</footer>
   </div>
 
   <script>
-    const dropZone     = document.getElementById('dropZone');
-    const fileInput    = document.getElementById('fileInput');
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
     const progressWrap = document.getElementById('progressWrap');
-    const progressBar  = document.getElementById('progressBar');
-    const progressLabel= document.getElementById('progressLabel');
-    const errorMsg     = document.getElementById('errorMsg');
-    const results      = document.getElementById('results');
-    const cardGrid     = document.getElementById('cardGrid');
+    const progressBar = document.getElementById('progressBar');
+    const progressLabel = document.getElementById('progressLabel');
+    const errorMsg = document.getElementById('errorMsg');
+    const results = document.getElementById('results');
+    const cardGrid = document.getElementById('cardGrid');
+    const instructions = document.getElementById('instructions');
 
     const CARD_META = {
-      'liked_songs.csv':  { icon: '❤️', label: 'Liked Songs',   stat: s => `${s} songs you loved` },
-      'most_played.csv':  { icon: '🔥', label: 'Most Played',   stat: s => `${s} tracks by play time` },
-      'cached_songs.csv': { icon: '💾', label: 'Full Library',   stat: s => `${s} songs total` },
+      'liked_songs.csv': { icon: '❤️', label: 'Liked Songs', stat: s => `${s} songs you loved` },
+      'most_played.csv': { icon: '🔥', label: 'Most Played', stat: s => `${s} tracks by play time` },
+      'cached_songs.csv': { icon: '💾', label: 'Full Library', stat: s => `${s} songs total` },
     };
 
     /* ── Drag & Drop ─────────────────────────────────────── */
@@ -337,6 +501,7 @@
       // Reset UI
       errorMsg.classList.remove('visible');
       results.classList.remove('visible');
+      instructions.classList.remove('visible');
       cardGrid.innerHTML = '';
 
       // Validate
@@ -417,7 +582,9 @@
       });
 
       results.classList.add('visible');
+      instructions.classList.add('visible');
     }
   </script>
 </body>
+
 </html>

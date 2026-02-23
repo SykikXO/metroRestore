@@ -1,0 +1,16 @@
+# Personal data
+*.backup
+extracted_backup/
+liked_songs.csv
+most_played.csv
+cached_songs.csv
+songs_list.csv
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# IDE
+.vscode/
+.idea/
